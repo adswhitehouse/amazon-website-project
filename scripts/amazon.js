@@ -27,7 +27,7 @@ products.forEach((product) => {
       </div>
 
       <div class="product-quantity-container">
-        <select>
+        <select class="jsQuantitySelection-${product.id}">
           <option selected value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -59,10 +59,13 @@ products.forEach((product) => {
 // 4 - Access the HTML element we want to hold the productsHTML and set its innerText to productsHTML -> cart.js
 document.querySelector(".jsProductsGrid").innerHTML = productsHTML;
 
-// 6 - When the Add to Cart button is clicked, if the product already exists in the cart its quantity will update. If not, the product will be added to cart. Header cart quantity is updated to match total cart quantity
+// 6 - When the Add to Cart button is clicked, if the product already exists in the cart its select option quantity will be added. If not, the new product will be added to cart along with its select option quantity. Header cart quantity is updated to match total cart quantity
 document.querySelectorAll(".jsAddToCartBtn").forEach((btn) => {
   btn.addEventListener("click", () => {
     const productId = btn.dataset.productId;
+    const quantitySelection = document.querySelector(
+      `.jsQuantitySelection-${productId}`
+    ).value;
 
     let matchingItem;
 
@@ -73,19 +76,18 @@ document.querySelectorAll(".jsAddToCartBtn").forEach((btn) => {
     });
 
     if (matchingItem) {
-      matchingItem.quantity++;
+      matchingItem.quantity += Number(quantitySelection);
     } else {
       cart.push({
         productId: productId,
-        quantity: 1,
+        quantity: Number(quantitySelection),
       });
     }
-    
-    let cartQuantity = 0
-    cart.forEach((cartItem) => {
-      cartQuantity += cartItem.quantity
-    })
-    document.querySelector(".jsCartQuantity").textContent = cartQuantity
 
+    let cartQuantity = 0;
+    cart.forEach((cartItem) => {
+      cartQuantity += cartItem.quantity;
+    });
+    document.querySelector(".jsCartQuantity").textContent = cartQuantity;
   });
 });
