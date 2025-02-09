@@ -1,3 +1,6 @@
+import { cart } from "../data/cart.js";
+import { products } from "../data/products.js";
+
 // 2 - Create variable that will contain all of the product HTML's
 let productsHTML = "";
 //
@@ -94,7 +97,7 @@ document.querySelectorAll(".jsAddToCartBtn").forEach((btn) => {
     document.querySelector(".jsCartQuantity").textContent = cartQuantity;
     //
 
-    // Create timer which resets if the Add to Cart button is clicked again while the timer is active
+    // 7 - Create timer which resets if the Add to Cart button is clicked again while the timer is active
     const addedToCart = document.querySelector(`.jsAddedToCart-${productId}`);
     let timer;
 
