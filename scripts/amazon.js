@@ -59,6 +59,7 @@ products.forEach((product) => {
 // 4 - Access the HTML element we want to hold the productsHTML and set its innerText to productsHTML -> cart.js
 document.querySelector(".jsProductsGrid").innerHTML = productsHTML;
 
+// 6 - When the Add to Cart button is clicked, if the product already exists in the cart its quantity will update. If not, the product will be added to cart. Header cart quantity is updated to match total cart quantity
 document.querySelectorAll(".jsAddToCartBtn").forEach((btn) => {
   btn.addEventListener("click", () => {
     const productId = btn.dataset.productId;
@@ -79,6 +80,12 @@ document.querySelectorAll(".jsAddToCartBtn").forEach((btn) => {
         quantity: 1,
       });
     }
-    console.log(cart);
+    
+    let cartQuantity = 0
+    cart.forEach((cartItem) => {
+      cartQuantity += cartItem.quantity
+    })
+    document.querySelector(".jsCartQuantity").textContent = cartQuantity
+
   });
 });
