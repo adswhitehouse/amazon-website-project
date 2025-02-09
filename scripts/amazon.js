@@ -1,5 +1,5 @@
-// 2 - Create variable that will contain all of the product HTML's 
-let productsHTML = ""
+// 2 - Create variable that will contain all of the product HTML's
+let productsHTML = "";
 
 // 3 - Create a forEach loop that generates unique HTML for each product in the products array and appends it to the variable productsHTML for each product
 products.forEach((product) => {
@@ -48,11 +48,37 @@ products.forEach((product) => {
         Added
       </div>
 
-      <button class="add-to-cart-button button-primary">
+      <button class="add-to-cart-button button-primary jsAddToCartBtn" data-product-id="${
+        product.id
+      }">
         Add to Cart
       </button>
     </div>`;
 });
 
-// 4 - Access the HTML element we want to hold the productsHTML and set its innerText to productsHTML 
-document.querySelector(".jsProductsGrid").innerHTML = productsHTML
+// 4 - Access the HTML element we want to hold the productsHTML and set its innerText to productsHTML -> cart.js
+document.querySelector(".jsProductsGrid").innerHTML = productsHTML;
+
+document.querySelectorAll(".jsAddToCartBtn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const productId = btn.dataset.productId;
+
+    let matchingItem;
+
+    cart.forEach((cartItem) => {
+      if (productId === cartItem.productId) {
+        matchingItem = cartItem;
+      }
+    });
+
+    if (matchingItem) {
+      matchingItem.quantity++;
+    } else {
+      cart.push({
+        productId: productId,
+        quantity: 1,
+      });
+    }
+    console.log(cart);
+  });
+});
