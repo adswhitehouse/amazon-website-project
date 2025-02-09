@@ -1,5 +1,6 @@
 // 2 - Create variable that will contain all of the product HTML's
 let productsHTML = "";
+//
 
 // 3 - Create a forEach loop that generates unique HTML for each product in the products array and appends it to the variable productsHTML for each product
 products.forEach((product) => {
@@ -43,7 +44,7 @@ products.forEach((product) => {
 
       <div class="product-spacer"></div>
 
-      <div class="added-to-cart">
+      <div class="added-to-cart jsAddedToCart-${product.id}">
         <img src="images/icons/checkmark.png">
         Added
       </div>
@@ -55,14 +56,16 @@ products.forEach((product) => {
       </button>
     </div>`;
 });
+//
 
 // 4 - Access the HTML element we want to hold the productsHTML and set its innerText to productsHTML -> cart.js
 document.querySelector(".jsProductsGrid").innerHTML = productsHTML;
+//
 
 // 6 - When the Add to Cart button is clicked, if the product already exists in the cart its select option quantity will be added. If not, the new product will be added to cart along with its select option quantity. Header cart quantity is updated to match total cart quantity
 document.querySelectorAll(".jsAddToCartBtn").forEach((btn) => {
   btn.addEventListener("click", () => {
-    const productId = btn.dataset.productId;
+    const { productId } = btn.dataset;
     const quantitySelection = document.querySelector(
       `.jsQuantitySelection-${productId}`
     ).value;
@@ -79,7 +82,7 @@ document.querySelectorAll(".jsAddToCartBtn").forEach((btn) => {
       matchingItem.quantity += Number(quantitySelection);
     } else {
       cart.push({
-        productId: productId,
+        productId,
         quantity: Number(quantitySelection),
       });
     }
@@ -89,5 +92,27 @@ document.querySelectorAll(".jsAddToCartBtn").forEach((btn) => {
       cartQuantity += cartItem.quantity;
     });
     document.querySelector(".jsCartQuantity").textContent = cartQuantity;
+    //
+
+    // Create timer which resets if the Add to Cart button is clicked again while the timer is active
+    const addedToCart = document.querySelector(`.jsAddedToCart-${productId}`);
+    let timer;
+
+    const runTimer = () => {
+      addedToCart.classList.add("added-to-cart-opacity-full");
+      timer = setTimeout(() => {
+        addedToCart.classList.remove("added-to-cart-opacity-full");
+      }, 2000);
+    };
+
+    runTimer();
+
+    document.querySelectorAll(".jsAddToCartBtn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        clearTimeout(timer);
+        runTimer();
+      });
+    });
+    //
   });
 });
