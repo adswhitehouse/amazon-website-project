@@ -34,7 +34,9 @@ cart.forEach((cartItem) => {
           </div>
           <div class="product-quantity">
             <span>
-              Quantity: <span class="quantity-label jsQuantityLabel-${matchingProduct.id}">${cartItem.quantity}</span>
+              Quantity: <span class="quantity-label jsQuantityLabel-${
+                matchingProduct.id
+              }">${cartItem.quantity}</span>
             </span>
             <span class="update-quantity-link link-primary jsUpdateLink" data-product-id="${
               matchingProduct.id
@@ -127,11 +129,16 @@ document.querySelectorAll(".jsSaveLink").forEach((link) => {
   link.addEventListener("click", () => {
     let productId = link.dataset.productId;
     let container = document.querySelector(`.jsCartItemContainer-${productId}`);
-    container.classList.remove("is-editing-quantity");
     let quantityInput = document.querySelector(`.jsQuantityInput-${productId}`);
     let quantityValue = Number(quantityInput.value);
-    updateQuantity(productId, quantityValue)
-    let quantityLabel = document.querySelector(`.jsQuantityLabel-${productId}`)
-    quantityLabel.textContent = quantityValue
+    let quantityLabel = document.querySelector(`.jsQuantityLabel-${productId}`);
+
+    if(quantityValue > 0 && quantityValue < 101) {
+      container.classList.remove("is-editing-quantity");
+      updateQuantity(productId, quantityValue);
+      quantityLabel.textContent = quantityValue;
+    } else {
+      alert("Please input a valid quantity between 1 and 100")
+    }
   });
 });
