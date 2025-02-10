@@ -13,7 +13,7 @@ cart.forEach((cartItem) => {
     }
   });
   cartHTML += `
-    <div class="cart-item-container">
+    <div class="cart-item-container jsCartItemContainer-${matchingProduct.id}">
       <div class="delivery-date">
         Delivery date: Tuesday, June 21
       </div>
@@ -94,9 +94,13 @@ cart.forEach((cartItem) => {
 document.querySelector(".jsOrderSummary").innerHTML = cartHTML;
 //
 
+// 9 - Upon clicking the "delete" link, the item is removed from the cart using removeItemFromCart function imported from cart.js with a productId parameter of the items productId and then also deleted from the carts HTML 
 document.querySelectorAll(".jsDeleteFromCart").forEach((link) => {
   link.addEventListener("click", () => {
-    let productId = link.dataset.productId
-    removeItemFromCart(productId)
+    let productId = link.dataset.productId;
+    removeItemFromCart(productId);
+    let container = document.querySelector(`.jsCartItemContainer-${productId}`)
+    container.remove()
   });
 });
+// 
