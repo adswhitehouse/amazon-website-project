@@ -2,7 +2,7 @@ import { cart, removeItemFromCart, updateCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { twoDecimalPlaces } from "./utilities/money.js";
 
-updateCartQuantity()
+updateCartQuantity();
 
 // Loop through the cart items checking if the product id of the cart item matches the product id of the product. If so, there is a match. The HTML for the the cart item is generated with the items unique data and the HTML is placed into the parent container to be displayed on the page
 let cartHTML = "";
@@ -40,8 +40,10 @@ cart.forEach((cartItem) => {
             }">
               Update
             </span>
-            <input class="quantity-input">
-            <span class="save-quantity-link link-primary">Save</span>
+            <input class="quantity-input jsQuantityInput-${matchingProduct.id}">
+            <span class="save-quantity-link link-primary jsSaveLink" data-product-id="${
+              matchingProduct.id
+            }">Save</span>
             <span class="delete-quantity-link link-primary jsDeleteFromCart" data-product-id="${
               matchingProduct.id
             }">
@@ -100,22 +102,32 @@ cart.forEach((cartItem) => {
 document.querySelector(".jsOrderSummary").innerHTML = cartHTML;
 //
 
-// Upon clicking the "delete" link, the item is removed from the cart using removeItemFromCart function imported from cart.js with a productId parameter of the items productId and then also deleted from the carts HTML 
+// Upon clicking the "delete" link, the item is removed from the cart using removeItemFromCart function imported from cart.js with a productId parameter of the items productId and then also deleted from the carts HTML
 document.querySelectorAll(".jsDeleteFromCart").forEach((link) => {
   link.addEventListener("click", () => {
     let productId = link.dataset.productId;
     removeItemFromCart(productId);
-    let container = document.querySelector(`.jsCartItemContainer-${productId}`)
-    container.remove()
+    let container = document.querySelector(`.jsCartItemContainer-${productId}`);
+    container.remove();
   });
 });
 
+// After clicking Update, the input and span element are shown
 document.querySelectorAll(".jsUpdateLink").forEach((link) => {
   link.addEventListener("click", () => {
-  let productId = link.dataset.productId
-  let container = document.querySelector(`.jsCartItemContainer-${productId}`)
-  container.classList.add("is-editing-quantity")
-  })
-})
+    let productId = link.dataset.productId;
+    let container = document.querySelector(`.jsCartItemContainer-${productId}`);
+    container.classList.add("is-editing-quantity");
+  });
+});
 
-
+// After clicking Save, the input and span element are hidden
+document.querySelectorAll(".jsSaveLink").forEach((link) => {
+  link.addEventListener("click", () => {
+    let productId = link.dataset.productId;
+    let container = document.querySelector(`.jsCartItemContainer-${productId}`);
+    container.classList.remove("is-editing-quantity");
+    let quantityInput = document.querySelector(`.jsQuantityInput-${productId}`);
+    let quantityValue = Number(quantityInput.value);
+  });
+});
