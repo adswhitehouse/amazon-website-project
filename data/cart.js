@@ -53,3 +53,14 @@ export function removeItemFromCart(productId) {
   updateCartQuantity()
   saveToStorage();
 }
+
+// Function to update cart quantity when clicking update and save with an input value
+export function updateQuantity(productId, newQuantity) {
+  cart.forEach((cartItem) => {
+    if(cartItem.productId === productId) {
+      cartItem.quantity = newQuantity
+    }
+  })
+  updateCartQuantity()
+  saveToStorage()
+}

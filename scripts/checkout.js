@@ -1,6 +1,7 @@
 import { cart, removeItemFromCart, updateCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { twoDecimalPlaces } from "./utilities/money.js";
+import { updateQuantity } from "../data/cart.js";
 
 updateCartQuantity();
 
@@ -33,7 +34,7 @@ cart.forEach((cartItem) => {
           </div>
           <div class="product-quantity">
             <span>
-              Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+              Quantity: <span class="quantity-label jsQuantityLabel-${matchingProduct.id}">${cartItem.quantity}</span>
             </span>
             <span class="update-quantity-link link-primary jsUpdateLink" data-product-id="${
               matchingProduct.id
@@ -121,7 +122,7 @@ document.querySelectorAll(".jsUpdateLink").forEach((link) => {
   });
 });
 
-// After clicking Save, the input and span element are hidden
+// After clicking Save, the input and span element are hidden and the quantity is updated globally
 document.querySelectorAll(".jsSaveLink").forEach((link) => {
   link.addEventListener("click", () => {
     let productId = link.dataset.productId;
@@ -129,5 +130,8 @@ document.querySelectorAll(".jsSaveLink").forEach((link) => {
     container.classList.remove("is-editing-quantity");
     let quantityInput = document.querySelector(`.jsQuantityInput-${productId}`);
     let quantityValue = Number(quantityInput.value);
+    updateQuantity(productId, quantityValue)
+    let quantityLabel = document.querySelector(`.jsQuantityLabel-${productId}`)
+    quantityLabel.textContent = quantityValue
   });
 });
