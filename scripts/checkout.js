@@ -1,9 +1,9 @@
-import { cart } from "../data/cart.js";
+import { cart, removeItemFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { twoDecimalPlaces } from "./utilities/money.js";
 
 // 8 - Loop through the cart items checking if the product id of the cart item matches the product id of the product. If so, there is a match. The HTML for the the cart item is generated with the items unique data and the HTML is placed into the parent container to be displayed on the page
-let cartHTML;
+let cartHTML = "";
 cart.forEach((cartItem) => {
   let productId = cartItem.productId;
   let matchingProduct;
@@ -36,7 +36,9 @@ cart.forEach((cartItem) => {
             <span class="update-quantity-link link-primary">
               Update
             </span>
-            <span class="delete-quantity-link link-primary">
+            <span class="delete-quantity-link link-primary jsDeleteFromCart" data-product-id="${
+              matchingProduct.id
+            }">
               Delete
             </span>
           </div>
@@ -89,5 +91,12 @@ cart.forEach((cartItem) => {
       </div>
     </div>`;
 });
-document.querySelector(".jsOrderSummary").innerHTML = cartHTML
-// 
+document.querySelector(".jsOrderSummary").innerHTML = cartHTML;
+//
+
+document.querySelectorAll(".jsDeleteFromCart").forEach((link) => {
+  link.addEventListener("click", () => {
+    let productId = link.dataset.productId
+    removeItemFromCart(productId)
+  });
+});
