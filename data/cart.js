@@ -1,12 +1,13 @@
-// 5 - Create empty cart array that will contain product data of the items added to the cart if there is any data stored in local storage
+// Create empty cart array that will contain product data of the items added to the cart if there is any data stored in local storage
 export let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// 10 - Saves cart to local storage when function is called
+// Saves cart to local storage when function is called
 function saveToStorage() {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
-
 //
+
+// Adds new item to cart
 export function addToCart(productId) {
   const quantitySelection = document.querySelector(
     `.jsQuantitySelection-${productId}`
@@ -31,6 +32,16 @@ export function addToCart(productId) {
   saveToStorage();
 }
 
+// Copy of updateCartQuantity that is called when removeItemFromCart is called and updates the checkout link again
+export function updateCartQuantity() {
+  let cartQuantity = 0;
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+  document.querySelector(".jsReturnToHomeLink").textContent = `${cartQuantity} items`;
+}
+
+// Removes item from cart
 export function removeItemFromCart(productId) {
   let newCart = [];
   cart.forEach((cartItem) => {
@@ -39,5 +50,6 @@ export function removeItemFromCart(productId) {
     }
   });
   cart = newCart;
+  updateCartQuantity()
   saveToStorage();
 }

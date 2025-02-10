@@ -2,7 +2,7 @@ import { cart, removeItemFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { twoDecimalPlaces } from "./utilities/money.js";
 
-// 8 - Loop through the cart items checking if the product id of the cart item matches the product id of the product. If so, there is a match. The HTML for the the cart item is generated with the items unique data and the HTML is placed into the parent container to be displayed on the page
+// Loop through the cart items checking if the product id of the cart item matches the product id of the product. If so, there is a match. The HTML for the the cart item is generated with the items unique data and the HTML is placed into the parent container to be displayed on the page
 let cartHTML = "";
 cart.forEach((cartItem) => {
   let productId = cartItem.productId;
@@ -94,7 +94,7 @@ cart.forEach((cartItem) => {
 document.querySelector(".jsOrderSummary").innerHTML = cartHTML;
 //
 
-// 9 - Upon clicking the "delete" link, the item is removed from the cart using removeItemFromCart function imported from cart.js with a productId parameter of the items productId and then also deleted from the carts HTML 
+// Upon clicking the "delete" link, the item is removed from the cart using removeItemFromCart function imported from cart.js with a productId parameter of the items productId and then also deleted from the carts HTML 
 document.querySelectorAll(".jsDeleteFromCart").forEach((link) => {
   link.addEventListener("click", () => {
     let productId = link.dataset.productId;
@@ -103,4 +103,15 @@ document.querySelectorAll(".jsDeleteFromCart").forEach((link) => {
     container.remove()
   });
 });
+// 
+
+// Copy of the updateCartQuantity function that targets the checkout link on checkout instead
+export function updateCartQuantity() {
+  let cartQuantity = 0;
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+  document.querySelector(".jsReturnToHomeLink").textContent = `${cartQuantity} items`;
+}
+updateCartQuantity()
 // 
