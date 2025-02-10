@@ -2,6 +2,8 @@ import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { twoDecimalPlaces } from "./utilities/money.js";
 
+updateCartQuantity()
+
 // 2 - Create variable that will contain all of the product HTML's
 let productsHTML = "";
 //
