@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 
 // 2 - Create variable that will contain all of the product HTML's
@@ -61,7 +61,15 @@ products.forEach((product) => {
 });
 //
 
-// 4 - Access the HTML element we want to hold the productsHTML and set its innerText to productsHTML -> cart.js
+function updateCartQuantity() {
+  let cartQuantity = 0;
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+  document.querySelector(".jsCartQuantity").textContent = cartQuantity;
+}
+
+// 4 - Access the HTML element we want to hold the productsHTML and set its innerText to productsHTML
 document.querySelector(".jsProductsGrid").innerHTML = productsHTML;
 //
 
@@ -69,32 +77,10 @@ document.querySelector(".jsProductsGrid").innerHTML = productsHTML;
 document.querySelectorAll(".jsAddToCartBtn").forEach((btn) => {
   btn.addEventListener("click", () => {
     const { productId } = btn.dataset;
-    const quantitySelection = document.querySelector(
-      `.jsQuantitySelection-${productId}`
-    ).value;
 
-    let matchingItem;
-
-    cart.forEach((cartItem) => {
-      if (productId === cartItem.productId) {
-        matchingItem = cartItem;
-      }
-    });
-
-    if (matchingItem) {
-      matchingItem.quantity += Number(quantitySelection);
-    } else {
-      cart.push({
-        productId,
-        quantity: Number(quantitySelection),
-      });
-    }
-
-    let cartQuantity = 0;
-    cart.forEach((cartItem) => {
-      cartQuantity += cartItem.quantity;
-    });
-    document.querySelector(".jsCartQuantity").textContent = cartQuantity;
+    addToCart(productId);
+    
+    updateCartQuantity()
     //
 
     // 7 - Create timer which resets if the Add to Cart button is clicked again while the timer is active

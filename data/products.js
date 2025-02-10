@@ -1,4 +1,4 @@
-// 1 - Create array that holds each products data in an object -> amazon.js
+// 1 - Create array that holds each products data in an object
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
