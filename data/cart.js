@@ -1,9 +1,9 @@
-// 5 - Create cart array that will contain product data of the items added to the cart
+// 5 - Create empty cart array that will contain product data of the items added to the cart if there is any data stored in local storage
+export let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-export let cart = JSON.parse(localStorage.getItem("cart")) || []
-
+// 10 - Saves cart to local storage when function is called
 function saveToStorage() {
-  localStorage.setItem("cart", JSON.stringify(cart))
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 //
@@ -28,16 +28,16 @@ export function addToCart(productId) {
       quantity: Number(quantitySelection),
     });
   }
-  saveToStorage()
+  saveToStorage();
 }
 
 export function removeItemFromCart(productId) {
-  let newCart = []
+  let newCart = [];
   cart.forEach((cartItem) => {
-    if(cartItem.productId !== productId) {
-      newCart.push(cartItem)
+    if (cartItem.productId !== productId) {
+      newCart.push(cartItem);
     }
-  })
-  cart = newCart
-  saveToStorage()
+  });
+  cart = newCart;
+  saveToStorage();
 }
