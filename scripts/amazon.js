@@ -1,5 +1,6 @@
 import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
+import { twoDecimalPlaces } from "./utilities/money.js";
 
 // 2 - Create variable that will contain all of the product HTML's
 let productsHTML = "";
@@ -27,7 +28,7 @@ products.forEach((product) => {
       </div>
 
       <div class="product-price">
-        $${(product.priceCents / 100).toFixed(2)}
+        $${twoDecimalPlaces(product.priceCents)}
       </div>
 
       <div class="product-quantity-container">
