@@ -1,4 +1,4 @@
-import { cart, removeItemFromCart } from "../data/cart.js";
+import { cart, removeItemFromCart, updateCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { twoDecimalPlaces } from "./utilities/money.js";
 
@@ -103,15 +103,5 @@ document.querySelectorAll(".jsDeleteFromCart").forEach((link) => {
     container.remove()
   });
 });
-// 
 
-// Copy of the updateCartQuantity function that targets the checkout link on checkout instead
-export function updateCartQuantity() {
-  let cartQuantity = 0;
-  cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
-  });
-  document.querySelector(".jsReturnToHomeLink").textContent = `${cartQuantity} items`;
-}
 updateCartQuantity()
-// 

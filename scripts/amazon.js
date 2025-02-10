@@ -2,7 +2,7 @@ import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { twoDecimalPlaces } from "./utilities/money.js";
 
-updateCartQuantity()
+updateCartQuantity();
 
 // 2 - Create variable that will contain all of the product HTML's
 let productsHTML = "";
@@ -64,6 +64,7 @@ products.forEach((product) => {
 });
 //
 
+// Updates the cart quantity on amazon.js and displays cart quantity in header
 export function updateCartQuantity() {
   let cartQuantity = 0;
   cart.forEach((cartItem) => {
@@ -82,8 +83,8 @@ document.querySelectorAll(".jsAddToCartBtn").forEach((btn) => {
     const { productId } = btn.dataset;
 
     addToCart(productId);
-    
-    updateCartQuantity()
+
+    updateCartQuantity();
     //
 
     // 7 - Create timer which resets if the Add to Cart button is clicked again while the timer is active
