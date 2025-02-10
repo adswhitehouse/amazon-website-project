@@ -110,11 +110,9 @@ document.querySelectorAll(".jsAddToCartBtn").forEach((btn) => {
 
     runTimer();
 
-    document.querySelectorAll(".jsAddToCartBtn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        clearTimeout(timer);
-        runTimer();
-      });
+    btn.addEventListener("click", () => {
+      clearTimeout(timer);
+      runTimer();
     });
     //
   });
