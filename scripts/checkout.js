@@ -43,7 +43,9 @@ cart.forEach((cartItem) => {
             }">
               Update
             </span>
-            <input class="quantity-input jsQuantityInput-${matchingProduct.id}">
+            <input class="quantity-input jsQuantityInput-${
+              matchingProduct.id
+            } jsInputCart" data-product-id="${matchingProduct.id}">
             <span class="save-quantity-link link-primary jsSaveLink" data-product-id="${
               matchingProduct.id
             }">Save</span>
@@ -121,6 +123,8 @@ document.querySelectorAll(".jsUpdateLink").forEach((link) => {
     let productId = link.dataset.productId;
     let container = document.querySelector(`.jsCartItemContainer-${productId}`);
     container.classList.add("is-editing-quantity");
+
+    let quantityInput = document.querySelector(`.jsQuantityInput-${productId}`);
   });
 });
 
@@ -133,12 +137,34 @@ document.querySelectorAll(".jsSaveLink").forEach((link) => {
     let quantityValue = Number(quantityInput.value);
     let quantityLabel = document.querySelector(`.jsQuantityLabel-${productId}`);
 
-    if(quantityValue > 0 && quantityValue < 101) {
+    if (quantityValue > 0 && quantityValue < 101) {
       container.classList.remove("is-editing-quantity");
       updateQuantity(productId, quantityValue);
       quantityLabel.textContent = quantityValue;
+      quantityInput.classList.remove("is-focused");
     } else {
-      alert("Please input a valid quantity between 1 and 100")
+      alert("Please input a valid quantity between 1 and 100");
+    }
+  });
+});
+
+document.querySelectorAll(".jsInputCart").forEach((input) => {
+  input.addEventListener("keydown", (e) => {
+    let productId = input.dataset.productId;
+    let container = document.querySelector(`.jsCartItemContainer-${productId}`);
+    let quantityInput = document.querySelector(`.jsQuantityInput-${productId}`);
+    let quantityValue = Number(quantityInput.value);
+    let quantityLabel = document.querySelector(`.jsQuantityLabel-${productId}`);
+
+    if (e.key === "Enter") {
+      if (quantityValue > 0 && quantityValue < 101) {
+        container.classList.remove("is-editing-quantity");
+        updateQuantity(productId, quantityValue);
+        quantityLabel.textContent = quantityValue;
+        quantityInput.classList.remove("is-focused");
+      } else {
+        alert("Please input a valid quantity between 1 and 100");
+      }
     }
   });
 });
