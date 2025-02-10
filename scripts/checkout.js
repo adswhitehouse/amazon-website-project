@@ -113,7 +113,8 @@ document.querySelectorAll(".jsDeleteFromCart").forEach((link) => {
 document.querySelectorAll(".jsUpdateLink").forEach((link) => {
   link.addEventListener("click", () => {
   let productId = link.dataset.productId
-  console.log(productId)
+  let container = document.querySelector(`.jsCartItemContainer-${productId}`)
+  container.classList.add("is-editing-quantity")
   })
 })
 
