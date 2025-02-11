@@ -8,13 +8,13 @@ import {
 import { products, getProduct } from "../../data/products.js";
 import { twoDecimalPlaces } from "../utilities/money.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
-import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
+import {
+  deliveryOptions,
+  getDeliveryOption,
+} from "../../data/deliveryOptions.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 updateCartQuantity();
-
-const currentDate = dayjs();
-const deliveryDate = currentDate.add(7, "days");
-console.log(deliveryDate.format("dddd, MMMM, D"));
 
 export function renderOrderSummary() {
   // Loop through the cart items checking if the product id of the cart item matches the product id of the product. If so, there is a match. The HTML for the the cart item is generated with the items unique data and the HTML is placed into the parent container to be displayed on the page
@@ -30,7 +30,7 @@ export function renderOrderSummary() {
 
     let deliveryOptionId = cartItem.deliveryOptionId;
 
-    let deliveryOption = getDeliveryOption(deliveryOptionId)
+    let deliveryOption = getDeliveryOption(deliveryOptionId);
 
     let todaysDate = dayjs();
     let deliveryDate = todaysDate.add(deliveryOption.deliveryDays, "days");
@@ -137,6 +137,7 @@ export function renderOrderSummary() {
         `.jsCartItemContainer-${productId}`
       );
       container.remove();
+      renderPaymentSummary();
     });
   });
 
@@ -216,5 +217,6 @@ export function renderOrderSummary() {
       updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
     });
+    renderPaymentSummary();
   });
 }
