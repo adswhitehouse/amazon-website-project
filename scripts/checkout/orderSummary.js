@@ -22,11 +22,6 @@ export function renderOrderSummary() {
   cart.forEach((cartItem) => {
     let productId = cartItem.productId;
     const matchingProduct = getProduct(productId);
-    // products.forEach((product) => {
-    //   if (product.id === productId) {
-    //     matchingProduct = product;
-    //   }
-    // });
 
     let deliveryOptionId = cartItem.deliveryOptionId;
 
