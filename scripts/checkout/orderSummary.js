@@ -1,7 +1,6 @@
 import {
   cart,
   removeItemFromCart,
-  updateCartQuantity,
   updateQuantity,
   updateDeliveryOption,
 } from "../../data/cart.js";
@@ -14,6 +13,7 @@ import {
 } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 import isSatSun from "./paymentSummary.js";
+import { renderCheckoutHeader } from "./checkoutHeader.js";
 
 // - Practice
 // let today = dayjs();
@@ -47,7 +47,7 @@ import isSatSun from "./paymentSummary.js";
 // isSatSun(sunday2);
 //
 
-updateCartQuantity();
+renderCheckoutHeader()
 
 export function renderOrderSummary() {
   // Loop through the cart items checking if the product id of the cart item matches the product id of the product. If so, there is a match. The HTML for the the cart item is generated with the items unique data and the HTML is placed into the parent container to be displayed on the page

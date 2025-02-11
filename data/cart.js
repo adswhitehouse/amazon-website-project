@@ -1,3 +1,5 @@
+import { renderCheckoutHeader } from "../scripts/checkout/checkoutHeader.js";
+
 // Create empty cart array that will contain product data of the items added to the cart if there is any data stored in local storage
 export let cart = JSON.parse(localStorage.getItem("cart"));
 
@@ -48,17 +50,6 @@ export function addToCart(productId) {
   saveToStorage();
 }
 
-// Copy of updateCartQuantity that is called when removeItemFromCart is called and updates the checkout link again
-export function updateCartQuantity() {
-  let cartQuantity = 0;
-  cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
-  });
-  document.querySelector(
-    ".jsReturnToHomeLink"
-  ).textContent = `${cartQuantity} items`;
-}
-
 // Removes item from cart
 export function removeItemFromCart(productId) {
   let newCart = [];
@@ -68,7 +59,7 @@ export function removeItemFromCart(productId) {
     }
   });
   cart = newCart;
-  updateCartQuantity();
+  renderCheckoutHeader();
   saveToStorage();
 }
 
@@ -79,7 +70,7 @@ export function updateQuantity(productId, newQuantity) {
       cartItem.quantity = newQuantity;
     }
   });
-  updateCartQuantity();
+  renderCheckoutHeader()
   saveToStorage();
 }
 
