@@ -1,7 +1,12 @@
-import { cart, removeItemFromCart, updateCartQuantity } from "../data/cart.js";
+import {
+  cart,
+  removeItemFromCart,
+  updateCartQuantity,
+  updateQuantity,
+  updateDeliveryOption,
+} from "../data/cart.js";
 import { products } from "../data/products.js";
 import { twoDecimalPlaces } from "./utilities/money.js";
-import { updateQuantity } from "../data/cart.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { deliveryOptions } from "../data/deliveryOptions.js";
 
@@ -104,7 +109,9 @@ function deliveryOptionsHTML(matchingProduct, cartItem) {
     let isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
     deliveryHTML += `
-    <div class="delivery-option">
+    <div class="delivery-option jsDeliveryOption" data-product-id="${
+      matchingProduct.id
+    }" data-delivery-option-id="${deliveryOption.id}">
       <input type="radio" ${isChecked ? "checked" : ""}
         class="delivery-option-input"
         name="delivery-option-${matchingProduct.id}">
@@ -184,5 +191,12 @@ document.querySelectorAll(".jsInputCart").forEach((input) => {
         alert("Please input a valid quantity between 1 and 100");
       }
     }
+  });
+});
+
+document.querySelectorAll(".jsDeliveryOption").forEach((element) => {
+  element.addEventListener("click", () => {
+    const { productId, deliveryOptionId } = element.dataset;
+    updateDeliveryOption(productId, deliveryOptionId);
   });
 });
