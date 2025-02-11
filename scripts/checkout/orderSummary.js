@@ -161,7 +161,7 @@ export function renderOrderSummary() {
     link.addEventListener("click", () => {
       let productId = link.dataset.productId;
       removeItemFromCart(productId);
-      renderOrderSummary()
+      renderOrderSummary();
       renderPaymentSummary();
     });
   });
@@ -204,6 +204,7 @@ export function renderOrderSummary() {
       } else {
         alert("Please input a valid quantity between 1 and 100");
       }
+      renderOrderSummary();
     });
   });
 

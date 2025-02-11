@@ -11,12 +11,15 @@ export default function isWeekend(date) {
 export function renderPaymentSummary() {
   let productPriceCents = 0;
   let shippingPriceCents = 0;
+  let totalQuantity = 0
   cart.forEach((cartItem) => {
     const product = getProduct(cartItem.productId);
     productPriceCents += product.priceCents * cartItem.quantity;
 
     let deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
     shippingPriceCents += deliveryOption.priceCents;
+
+    totalQuantity += cartItem.quantity
   });
 
   let totalBeforeTaxCents = productPriceCents + shippingPriceCents;
@@ -29,7 +32,7 @@ export function renderPaymentSummary() {
     </div>
 
     <div class="payment-summary-row">
-      <div>Items (3):</div>
+      <div>Items (${totalQuantity}):</div>
       <div class="payment-summary-money">$${twoDecimalPlaces(productPriceCents)}</div>
     </div>
 
