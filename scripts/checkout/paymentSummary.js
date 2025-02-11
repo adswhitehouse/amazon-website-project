@@ -2,6 +2,11 @@ import { cart } from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import { twoDecimalPlaces } from "../utilities/money.js";
+export default function isWeekend(date) {
+  if(date.format("dddd") === "Saturday" || date.format("dddd") === "Sunday") {
+    console.log(date)
+  }
+}
 
 export function renderPaymentSummary() {
   let productPriceCents = 0;

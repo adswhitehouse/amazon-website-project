@@ -13,6 +13,39 @@ import {
   getDeliveryOption,
 } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
+import isSatSun from "./paymentSummary.js";
+
+// - Practice
+let today = dayjs();
+
+console.log(today);
+let fiveDaysTime = today.add(5, "days");
+console.log(fiveDaysTime);
+let fiveDaysTimeFormatted = fiveDaysTime.format("MMMM, D");
+console.log(fiveDaysTimeFormatted);
+let fiveDaysTimeFormatted1 = fiveDaysTime.format("dddd");
+console.log(fiveDaysTimeFormatted1);
+
+let oneMonthsTime = today.add(1, "month");
+console.log(oneMonthsTime);
+let oneMonthsTimeFormatted = oneMonthsTime.format("MMMM, D");
+console.log(oneMonthsTimeFormatted);
+
+let oneMonthBefore = today.subtract(1, "month");
+console.log(oneMonthBefore);
+let oneMonthBeforeFormatted = oneMonthBefore.format("MMMM, D");
+console.log(oneMonthBeforeFormatted);
+
+let wednesday = today.add(1, "day");
+let friday = today.add(3, "day");
+let sunday1 = today.add(5, "days");
+let sunday2 = today.add(12, "days");
+
+isSatSun(wednesday);
+isSatSun(friday);
+isSatSun(sunday1);
+isSatSun(sunday2);
+//
 
 updateCartQuantity();
 
