@@ -1,3 +1,14 @@
+export function getProduct(productId) {
+  let matchingProduct;
+
+  products.forEach((product) => {
+    if (product.id === productId) {
+      matchingProduct = product;
+    }
+  });
+  return matchingProduct;
+}
+
 // Create array that holds each products data in an object
 export const products = [
   {
@@ -504,4 +515,4 @@ export const products = [
     keywords: ["t shirt", "unisex", "apparel", "comfy"],
   },
 ];
-// 
+//
