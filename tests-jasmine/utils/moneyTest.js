@@ -1,4 +1,4 @@
-import { twoDecimalPlaces } from "../scripts/utilities/money.js";
+import { twoDecimalPlaces } from "../../scripts/utilities/money.js";
 
 describe("test suite :twoDecimalPlaces", () => {
   it("converts cents into dollars", () => {
