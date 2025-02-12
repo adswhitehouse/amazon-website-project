@@ -14,6 +14,7 @@ import {
 import { renderPaymentSummary } from "./paymentSummary.js";
 import isSatSun from "./paymentSummary.js";
 import { renderCheckoutHeader } from "./checkoutHeader.js";
+import { calculateDeliveryDate } from "../../data/deliveryOptions.js";
 
 // - Practice
 // let today = dayjs();
@@ -47,7 +48,7 @@ import { renderCheckoutHeader } from "./checkoutHeader.js";
 // isSatSun(sunday2);
 //
 
-renderCheckoutHeader()
+renderCheckoutHeader();
 
 export function renderOrderSummary() {
   // Loop through the cart items checking if the product id of the cart item matches the product id of the product. If so, there is a match. The HTML for the the cart item is generated with the items unique data and the HTML is placed into the parent container to be displayed on the page
@@ -60,16 +61,12 @@ export function renderOrderSummary() {
 
     let deliveryOption = getDeliveryOption(deliveryOptionId);
 
-    let todaysDate = dayjs();
-    let deliveryDate = todaysDate.add(deliveryOption.deliveryDays, "days");
-    let dateString = deliveryDate.format("dddd, MMMM D");
-
     cartHTML += `
       <div class="cart-item-container jsCartItemContainer-${
         matchingProduct.id
       }">
         <div class="delivery-date">
-          Delivery date: ${dateString}
+          Delivery date: ${calculateDeliveryDate(deliveryOption)}
         </div>
 
         <div class="cart-item-details-grid">
@@ -122,10 +119,6 @@ export function renderOrderSummary() {
     let deliveryHTML = "";
 
     deliveryOptions.forEach((deliveryOption) => {
-      let todaysDate = dayjs();
-      let deliveryDate = todaysDate.add(deliveryOption.deliveryDays, "days");
-      let dateString = deliveryDate.format("dddd, MMMM D");
-
       let priceString =
         deliveryOption.priceCents === 0
           ? "FREE"
@@ -142,7 +135,7 @@ export function renderOrderSummary() {
           name="delivery-option-${matchingProduct.id}">
         <div>
           <div class="delivery-option-date">
-            ${dateString}
+            ${calculateDeliveryDate(deliveryOption)}
           </div>
           <div class="delivery-option-price">
             ${priceString} Shipping
