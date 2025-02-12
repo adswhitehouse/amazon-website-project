@@ -2,7 +2,7 @@ import {twoDecimalPlaces} from "../scripts/utilities/money.js"
 
 console.log("test suite: twoDecimalPlaces")
 
-console.log("concerts cents into dollars")
+console.log("converts cents into dollars")
 if(twoDecimalPlaces(2095) === "20.95") {
   console.log("passed")
 } else {
