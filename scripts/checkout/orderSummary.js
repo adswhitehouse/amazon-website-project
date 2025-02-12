@@ -167,10 +167,6 @@ export function renderOrderSummary() {
         `.jsCartItemContainer-${productId}`
       );
       container.classList.add("is-editing-quantity");
-
-      let quantityInput = document.querySelector(
-        `.jsQuantityInput-${productId}`
-      );
     });
   });
 
