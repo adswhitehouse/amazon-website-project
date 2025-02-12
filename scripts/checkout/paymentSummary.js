@@ -3,9 +3,8 @@ import { getProduct } from "../../data/products.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import { twoDecimalPlaces } from "../utilities/money.js";
 export default function isWeekend(date) {
-  if(date.format("dddd") === "Saturday" || date.format("dddd") === "Sunday") {
-    console.log(date)
-  }
+  const dayOfWeek = date.format('dddd');
+  return dayOfWeek === 'Saturday' || dayOfWeek === 'Sunday';
 }
 
 export function renderPaymentSummary() {
